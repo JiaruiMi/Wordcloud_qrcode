@@ -24,7 +24,7 @@ data$V2 <- seq(from = n, to = 1, by = -1)
 head(data);dim(data)
 data <- rename(data, word = V1, frequency = V2)
 data[data$word == 'lncRNA',2] = 150
-data <- rbind(data, data, data, data, data, data, data, data) # we can do this step several times to make the number of word a little bit larger
+data <- rbind(data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data) # we can do this step several times to make the number of word a little bit larger
 
 ## Make the plot
 wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
@@ -43,11 +43,52 @@ wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'ran
            backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
            figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/dog.jpg')
 
+wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
+           backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
+           figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/batman.jpg')
+
+wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
+           backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
+           figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/blackpanther.jpg')
+
+
+wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
+           backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
+           figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/jaguar.png')
+
+wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
+           backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
+           figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/ironman.jpg')
+
+wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
+           backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
+           figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/deadpool.jpg')
+
+
 ### The point is the figure you choose is better to have large black areas so that the words can reside in, otherwise
 ### the plot would be very ungly. Another thing is the object should be dark in the picture, the very classical
 ### negative example is 'aula medica'.
 
 
+## 使用网页爬取得文本（txt）文件构建wordcloud，需要下载文本，放置在txt文件中，综合使用jieba和wordcloud两个包
+library(jiebaR)   #载入jiebaR包
+engine = worker()  #生成分词器engine
+text<-scan('baikal_lake.txt',what='')
+seg<-segment(text,engine) ##分词
+head(seg)
+f1<-freq(seg)   ##统计词频
+head(f1)
+f2<-f1[order((f1)[2],decreasing=TRUE),]
+##根据词频降序排列
+x=rep(0,times=dim(f2)[1])  ##去单字
+for( i in 1:dim(f2)[1]){
+    if(nchar(f2[i,])[1]>1)
+     x[i]=i
+}
+y=sort(x)[1:dim(f2)[1]]
+y=f2[y,]
+head(y)  ##查看y
+wordcloud2(y,size = 0.5,figPath ='/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/doctorcap1.png')
 #============================================================================
 #
 #                             qrcode generation
@@ -56,6 +97,7 @@ wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'ran
 library(ggplot2)
 library(yyplot)
 library(ggimage)
+library(showtext) ## 添加中文字体
 
 ### 简单玩法，小试牛刀
 ggqrcode('http://mp.weixin.qq.com/s/-56MT28D0iese6ZsBYSyRA') ## Try webpage
