@@ -79,7 +79,10 @@ d <- data.frame(x=15, y=15,
 pg + geom_image(aes(x,y, image=img), data=d, size=.2)
 
 
-
+pg <- ggqrcode("http://mp.weixin.qq.com/s/-56MT28D0iese6ZsBYSyRA")
+d <- data.frame(x=15, y=15,    
+                img="/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/cap.png")
+pg + geom_image(aes(x,y, image=img), data=d, size=.2)
 
 
 
