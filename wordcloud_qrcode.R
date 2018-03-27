@@ -11,6 +11,7 @@
 ## install the package from github
 ## load your package
 library(wordcloud2)
+library(wordcloud)
 library(dplyr)
 library(RColorBrewer)
 
@@ -24,7 +25,7 @@ data$V2 <- seq(from = n, to = 1, by = -1)
 head(data);dim(data)
 data <- rename(data, word = V1, frequency = V2)
 data[data$word == 'lncRNA',2] = 150
-data <- rbind(data, data, data, data, data, data, data, data, data, data, data, data, data, data, data, data) # we can do this step several times to make the number of word a little bit larger
+# we can do this step several times to make the number of word a little bit larger
 
 ## Make the plot
 wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'random-dark',
@@ -64,7 +65,9 @@ wordcloud2(data,size=0.5,fontFamily="Segoe UI",fontWeight = 'bold', color = 'ran
            backgroundColor = "white", minRotation = -pi/4, maxRotation =pi/4, shuffle = F,
            figPath = '/Users/mijiarui/R_bioinformatics_project/Master_thesis_project/Wordcloud/deadpool.jpg')
 
-
+data$frequency = sample(1:60,size = 103, replace = T)
+wordcloud(words = data$word, freq = data$frequency, min.freq = 1, max.words = 300, random.order = F, 
+          rot.per = 0.35, colors = brewer.pal(10,"Dark2"))
 ### The point is the figure you choose is better to have large black areas so that the words can reside in, otherwise
 ### the plot would be very ungly. Another thing is the object should be dark in the picture, the very classical
 ### negative example is 'aula medica'.
